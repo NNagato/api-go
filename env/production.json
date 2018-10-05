@@ -1,0 +1,23 @@
+{
+  "nodeEndpoint":[
+    "https://semi-node.kyber.network",
+    "https://mainnet.infura.io"
+  ],
+  "eth_address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "eth_symbol": "ETH",
+  "etherScanAPI": "https://api.etherscan.io",
+  "api_usd":"https://api.coinmarketcap.com",
+  "reserve": "0x63825c174ab367968ec60f061753d3bbd36a0d8f",
+  "network": "0x818E6FECD516Ecc3849DAf6845e3EC868087B755",
+  "wrapper": "0x6172afc8c00c46e0d07ce3af203828198194620a",
+  "trade_topic":"0x1849bd6a030a1bca28b83437fd3de96f3d27a5d172fa7e9c78e7b61468928a39",
+  "endpoint": "wss://mainnet.infura.io/ws",
+  "averageBlockTime": 15000,
+  "gasstation_endpoint": "https://ethgasstation.info/json/ethgasAPI.json",
+  "tracker_endpoint":"https://tracker.kyber.network",
+
+  "core_endpoint": "https://internal-mainnet-core.kyber.network",
+  "secret_core": "vtHpz1l0kxLyGc4R1qJBkFlQre5352xGJU9h8UQTwUTz5p6VrxcEslF4KnDI21s1",
+
+  "port": "8000"
+}
