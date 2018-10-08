@@ -7,7 +7,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"math/big"
 	"net/http"
+	"strings"
 	"sync"
 	"time"
 
@@ -37,12 +39,24 @@ func (self *Fetcher) GetInfoData() *config.Config {
 	return infoData
 }
 
+// get list token array
 func (self *Fetcher) GetListToken() []common.Token {
 	self.mu.Lock()
 	defer self.mu.Unlock()
 	return self.tokens
 }
 
+// get list token (a map with key is token's address)
+func (self *Fetcher) GetMapListToken() map[string]common.Token {
+	arrayToken := self.GetListToken()
+	mapListToken := make(map[string]common.Token)
+	for _, token := range arrayToken {
+		mapListToken[strings.ToLower(token.Address)] = token
+	}
+	return mapListToken
+}
+
+// get token include error
 func (self *Fetcher) GetListTokenForAPI() ([]common.Token, error) {
 	self.mu.Lock()
 	defer self.mu.Unlock()
@@ -165,9 +179,19 @@ func (self *Fetcher) GetListTokenAPI() ([]common.Token, error) {
 // ----------------------- fetch blockchain ---------------------------
 // read contract
 
-func (self *Fetcher) GetRate() (*[]common.Rate, error) {
+func (self *Fetcher) GetRate(currentRate []common.Rate, customData *common.DataGetRate) (*[]common.Rate, error) {
 	infoData := self.GetInfoData()
-	sourceArr, sourceSymbolArr, destArr, destSymbolArr, amountArr := MakeDataGetRate(infoData)
+	var sourceArr, sourceSymbolArr, destArr, destSymbolArr []string
+	var amountArr []*big.Int
+	if len(currentRate) == 0 && customData != nil {
+		sourceArr = customData.SourceArr
+		sourceSymbolArr = customData.SourceSymbolArr
+		destArr = customData.DstArr
+		destSymbolArr = customData.DstSymbolArr
+		amountArr = customData.AmountArr
+	} else {
+		sourceArr, sourceSymbolArr, destArr, destSymbolArr, amountArr = MakeDataGetRate(infoData, currentRate)
+	}
 
 	dataAbi, err := self.contractHanler.EncodeRateData(sourceArr, destArr, amountArr)
 	if err != nil {

@@ -6,7 +6,7 @@ type Token struct {
 	Symbol   string `json:"id"`
 	Name     string `json:"name"`
 	Address  string `json:"address"`
-	Decimals uint64 `json:"decimals"`
+	Decimals int    `json:"decimals"`
 	Active   bool   `json:"active"`
 	Internal bool   `json:"internal"`
 }
@@ -30,4 +30,19 @@ type RateWrapper struct {
 
 type ResultRpc struct {
 	Result string `json:"result"`
+}
+
+type RateBuy struct {
+	SrcID  string    `json:"src_id"`
+	DstID  string    `json:"dst_id"`
+	SrcQty []float64 `json:"src_qty"`
+	DstQty []float64 `json:"dst_qty"`
+}
+
+type DataGetRate struct {
+	SourceArr       []string
+	SourceSymbolArr []string
+	DstArr          []string
+	DstSymbolArr    []string
+	AmountArr       []*big.Int
 }

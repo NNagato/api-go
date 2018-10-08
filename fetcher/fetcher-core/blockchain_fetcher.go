@@ -49,7 +49,7 @@ func (self *BlockchainFetcher) EthCall(toAddr string, dataABI string) (string, e
 	return result, nil
 }
 
-// ------------- other way to get Rate
+// ------------- other way to GetRate
 // func (self *BlockchainFetcher) GetRate(dataABI []byte) (string, error) {
 // 	msg := ether.CallMsg{
 // 		To:   &self.wrapperAddr,
